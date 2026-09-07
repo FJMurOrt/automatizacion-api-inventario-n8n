@@ -6,7 +6,7 @@ Este proyecto son tres flujos de automatización hechos con n8n, conectados a mi
 
 Tengo 3 flujos distintos:
 
-1. **Alerta de coste** que cada 5 minutos comprueba cuánto estoy gastando en el inventario y me avisa por email si se pasa del límite que hay establecido en el nodo de la condición if.
+1. **Alerta de coste** que cada 5 minutos comprueba cuánto estoy gastando en el inventario y me avisa por email si se pasa del límite de 100 que hay establecido en el nodo de la condición if.
 2. **Confirmación al crear un servidor** que hace que me llege un email automático cada vez que se crea un servidor nuevo
 3. **Confirmación al borrar un servidor** lo mismo que al crear un servidor pero al eliminarse un servidor.
 
