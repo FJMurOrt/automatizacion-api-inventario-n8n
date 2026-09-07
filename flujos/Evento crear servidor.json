@@ -1,0 +1,73 @@
+{
+  "name": "Evento crear servidor",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "evento-crear-servidor",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9e9adc1f-d362-45f5-b3fa-65c741edd651",
+      "name": "Webhook",
+      "webhookId": "1bb5c5b4-329e-4029-9614-b4e28f26a4a6"
+    },
+    {
+      "parameters": {
+        "fromEmail": "tuemail@gmail.com",
+        "toEmail": "tuemail@gmail.com",
+        "subject": "Confirmación - nuevo servidor creado",
+        "emailFormat": "text",
+        "text": "=Se ha creado un nuevo servidor en el inventario: {{ $json.body.nombre }} (ID: {{ $json.body.id }})",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5f7554da-0d25-46d4-a107-58706a8d6b93",
+      "name": "Send an Email",
+      "webhookId": "b32374e3-2d86-4af8-ac49-4693296f2283",
+      "credentials": {
+        "smtp": {
+          "id": "Pe4zeQRa4D0htqOm",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3b324304-fa12-427a-97db-a66e251c19f3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c6ac503a9bdbd0c0c0adfbfdc56a06a8159ef0e5a6875454c5e97a9d45fd68ad"
+  },
+  "nodeGroups": [],
+  "id": "FZU7iKRY1ZULcV9t",
+  "tags": []
+}

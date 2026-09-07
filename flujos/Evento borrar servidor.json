@@ -1,0 +1,73 @@
+{
+  "name": "Evento borrar servidor",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "evento-borrar-servidor",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "83eb99d3-9b4d-4616-8669-90aff76635bd",
+      "name": "Webhook",
+      "webhookId": "8682dea5-7b92-46dd-8096-1fd659af0184"
+    },
+    {
+      "parameters": {
+        "fromEmail": "tuemail@gmail.com",
+        "toEmail": "tuemail@gmail.com",
+        "subject": "Confirmación - servidor eliminado",
+        "emailFormat": "text",
+        "text": "=Se ha eliminado el servidor: {{ $json.body.nombre }} (ID: {{ $json.body.id }})",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "afff4f8d-f53a-433e-bfb0-5261dc1f130f",
+      "name": "Send an Email",
+      "webhookId": "c0a94324-fb05-40cc-9ff0-2beeea4af0de",
+      "credentials": {
+        "smtp": {
+          "id": "Pe4zeQRa4D0htqOm",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c08880f0-4a56-4b04-9c76-7dc91f3946f2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c6ac503a9bdbd0c0c0adfbfdc56a06a8159ef0e5a6875454c5e97a9d45fd68ad"
+  },
+  "nodeGroups": [],
+  "id": "K842UbihYCrhxAM8",
+  "tags": []
+}

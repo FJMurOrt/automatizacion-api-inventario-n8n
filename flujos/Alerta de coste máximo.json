@@ -1,0 +1,145 @@
+{
+  "name": "Alerta de coste máximo",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5b1230b5-47b8-4683-a010-1d69f0b3c27e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8000/coste_total",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "00362160-6502-4900-9a76-eea01ecd6ee8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "31aef0a3-7631-4b22-8dab-c16b03b717dd",
+              "leftValue": "={{ $json.coste_mensual_total }}",
+              "rightValue": 100,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "4dfa7869-fcf8-4efe-8253-0d30f084b3d4",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "tuemail@gmail.com",
+        "toEmail": "tuemail@gmail.com",
+        "subject": "Alerta - Coste de inventario elevado",
+        "emailFormat": "text",
+        "text": "=El coste mensual total de tu inventario es de {{ $json.coste_mensual_total }}€, y por lo tanto supera el límite establecido de 100€.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "27f03a9e-9585-4219-b83a-0cbd2bd1f6bb",
+      "name": "Send an Email",
+      "webhookId": "7e043c1c-b501-48ba-a592-5366937a3621",
+      "credentials": {
+        "smtp": {
+          "id": "Pe4zeQRa4D0htqOm",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e92786e7-1d7d-4f35-a6d3-ab302d59094c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c6ac503a9bdbd0c0c0adfbfdc56a06a8159ef0e5a6875454c5e97a9d45fd68ad"
+  },
+  "nodeGroups": [],
+  "id": "bj94pJigN44blKkn",
+  "tags": []
+}
